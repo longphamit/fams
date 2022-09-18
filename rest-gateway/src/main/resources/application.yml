@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    group:
+      dev:
+        - manager-dev
+springdoc:
+  api-docs:
+    path: /api-docs
