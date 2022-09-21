@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+    tools {
+        maven 'maven 3.8.4'
+        dockerTool 'docker'
+        jdk 'jdk8'
+    }
+    stages {
+        stage('Cloning git') {
+            steps {
+                git url: 'https://github.com/longphamit/fams', branch: 'dev', credentialsId: 'git-hub'
+            }
+        }
+        stage('Build Maven') {
+            steps {
+                sh 'mvn clean'
+                sh 'mvn compiler:compile'
+                sh 'mvn package'
+                sh 'mvn install -DskipTests=true'
+            }
+        }
+        stage('Build Image') {
+            steps {
+                sh "docker build -t longpc/fams-rest-gateway ."
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage("Login dockerhub") {
+            steps {
+               withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                    sh "docker login -u $user -p $pass"
+               }
+            }
+        }
+        stage("Push Image") {
+            steps {
+               sh "docker push longpc/fams-rest-gateway"
+            }
+        }
+    }
+}
