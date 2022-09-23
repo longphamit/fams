@@ -41,5 +41,21 @@ pipeline {
                sh "docker push longpc/fams-rest-gateway"
             }
         }
+        stage('Clean Images') {
+            steps{
+                sh "docker image prune -f"
+            }
+        }
+        stage("Pull Image"){
+            steps {
+               sh "docker pull longpc/fams-rest-gateway"
+            }
+        }
+        stage("Docker Compose Run"){
+            steps {
+               sh "docker pull longpc/fams-rest-gateway"
+               sh "cd /opt/projects/fams && docker-compose up -d"
+            }
+        }
     }
 }
