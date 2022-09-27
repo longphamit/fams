@@ -2,7 +2,9 @@ package com.fams.controller.configs;
 
 import com.fams.manager.constants.enums.RolesEnum;
 import com.fams.manager.entities.AccountEntity;
+import com.fams.manager.entities.GroupEntity;
 import com.fams.manager.repositories.AccountManager;
+import com.fams.manager.repositories.GroupManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
@@ -10,13 +12,18 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 @Configuration
 public class DataSeedingConfig implements ApplicationListener<ContextRefreshedEvent> {
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     @Autowired
     AccountManager accountManager;
+
+    @Autowired
+    GroupManager groupManager;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -31,7 +38,7 @@ public class DataSeedingConfig implements ApplicationListener<ContextRefreshedEv
             roles.add(RolesEnum.MEMBER.getValue());
             admin.setRoles(roles);
             admin.setEnabled(true);
-            accountManager.add(admin);
+            accountManager.save(admin);
         }
 
         // Member account
@@ -44,7 +51,18 @@ public class DataSeedingConfig implements ApplicationListener<ContextRefreshedEv
             HashSet<String> roles = new HashSet<>();
             roles.add(RolesEnum.MEMBER.getValue());
             member.setRoles(roles);
-            accountManager.add(member);
+            accountManager.save(member);
+
+            // Group
+            List<AccountEntity> members = new ArrayList<>();
+            members.add(member);
+            GroupEntity groupEntity = GroupEntity.builder()
+                    .admin(member)
+                    .members(members)
+                    .name("abc")
+                    .build();
+            groupManager.save(groupEntity);
         }
+
     }
 }

@@ -1,11 +1,19 @@
 package com.fams.restgateway.apis;
 
 import com.fams.controller.components.JwtTokenProvider;
+import com.fams.controller.controllers.AuthenController;
+import com.fams.controller.exceptions.InvalidSignInException;
 import com.fams.controller.models.AccountDetailAuthenModel;
 import com.fams.manager.dtos.request.SignInRequest;
+import com.fams.manager.dtos.response.GetAccountResponse;
+import com.fams.manager.dtos.response.ObjectWrapperResponse;
 import com.fams.manager.dtos.response.SignInResponse;
+import com.fams.manager.dtos.response.WrapperResponse;
+import com.fams.manager.entities.AccountEntity;
+import com.fams.manager.repositories.AccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,35 +23,62 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("auth")
+@RequestMapping("v1/auth")
 public class AuthenAPI {
-    @Autowired
-    AuthenticationManager authenticationManager;
-    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    private AccountManager accountManager;
     private JwtTokenProvider tokenProvider;
+
+    @Autowired
+    public AuthenAPI(AuthenticationManager authenticationManager, JwtTokenProvider tokenProvider) {
+        this.authenticationManager = authenticationManager;
+        this.tokenProvider = tokenProvider;
+    }
+
     @PostMapping("sign-in")
-    public SignInResponse signIn(@RequestBody SignInRequest signInRequest){
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        signInRequest.getEmail(),
-                        signInRequest.getPassword()
-                )
-        );
+    public WrapperResponse<Object> signIn(@RequestBody SignInRequest signInRequest) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            signInRequest.getEmail(),
+                            signInRequest.getPassword()
+                    )
+            );
 
-        // Nếu không xảy ra exception tức là thông tin hợp lệ
-        // Set thông tin authentication vào Security Context
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            // Nếu không xảy ra exception tức là thông tin hợp lệ
+            // Set thông tin authentication vào Security Context
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            AccountDetailAuthenModel accountDetail= (AccountDetailAuthenModel) authentication.getPrincipal();
+            // Trả về jwt cho người dùng.
+            String jwt = tokenProvider.generateToken(accountDetail);
 
-        // Trả về jwt cho người dùng.
-        String jwt = tokenProvider.generateToken((AccountDetailAuthenModel) authentication.getPrincipal());
-        return SignInResponse.builder().jwt(jwt).build();
+            AccountEntity account=accountDetail.getAccountEntity();
+            GetAccountResponse getAccountResponse=GetAccountResponse.builder()
+                    .id(account.getId())
+                    .email(account.getEmail())
+                    .username(account.getUserName())
+                    .roles(account.getRoles())
+                    .build();
+
+            return ObjectWrapperResponse.builder()
+                    .data(SignInResponse.builder()
+                            .account(getAccountResponse)
+                            .jwt(jwt).build())
+                    .message("Login success")
+                    .build();
+        } catch (BadCredentialsException e) {
+            throw new InvalidSignInException();
+        }
     }
+
     @PostMapping("sign-out")
-    public void signOut(){
+    public void signOut() {
 
     }
+
     @PostMapping("sign-up")
-    public void signUp(){
+    public void signUp() {
 
     }
 

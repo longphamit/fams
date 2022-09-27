@@ -11,14 +11,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccountControllerImpl implements AccountController {
+    private AccountManager accountManager;
+
+    private ModelMapper modelMapper;
+
     @Autowired
-    AccountManager accountManager;
-    @Autowired
-    ModelMapper modelMapper;
+    public AccountControllerImpl(AccountManager accountManager,ModelMapper modelMapper){
+        this.accountManager=accountManager;
+        this.modelMapper=modelMapper;
+    }
 
     @Override
     public GetAccountResponse add(AddAccountRequest addAccountRequest) {
-        AccountEntity account = accountManager.add(modelMapper.map(addAccountRequest, AccountEntity.class));
+        AccountEntity account = accountManager.save(modelMapper.map(addAccountRequest, AccountEntity.class));
         return modelMapper.map(account, GetAccountResponse.class);
     }
     @Override

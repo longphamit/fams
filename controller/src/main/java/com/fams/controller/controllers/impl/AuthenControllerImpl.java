@@ -11,20 +11,27 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenControllerImpl implements AuthenController {
+
+    private AccountManager accountManager;
+
     @Autowired
-    AccountManager accountManager;
+    public AuthenControllerImpl(AccountManager accountManager) {
+        this.accountManager = accountManager;
+    }
+
     @Override
     @SneakyThrows
     public AccountDetailAuthenModel loadUserByUsername(String username) {
-        AccountEntity account=accountManager.findByEmail(username);
-        if(account==null){
+        AccountEntity account = accountManager.findByEmail(username);
+        if (account == null) {
             throw new UsernameNotFoundException("User not found");
         }
         return new AccountDetailAuthenModel(account);
     }
+
     public AccountDetailAuthenModel loadUserByUserId(String id) {
-        AccountEntity account=accountManager.findById(id);
-        if(account==null){
+        AccountEntity account = accountManager.findById(id);
+        if (account == null) {
             throw new UsernameNotFoundException("User not found");
         }
         return new AccountDetailAuthenModel(account);
