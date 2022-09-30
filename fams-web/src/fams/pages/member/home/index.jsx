@@ -7,6 +7,7 @@ import {
     ScheduleOutlined,
     DollarCircleOutlined
 } from "@ant-design/icons";
+import { Button } from "primereact/button";
 const HomePage = () => {
     return (<div className="memberHomePage">
         <div className="dashBoard">
@@ -53,6 +54,16 @@ const HomePage = () => {
                             <div className="eventSubInfo"><ClockCircleOutlined style={{ margin: 10 }} /> 20:00</div>
                             <div className="eventSubInfo"><ScheduleOutlined style={{ margin: 10 }} />20/3/2022</div>
                             <div className="eventSubInfo"><DollarCircleOutlined style={{ margin: 10 }} />20.000 vnd</div>
+                            <Button className="p-button-success" style={{height:10}}>Join</Button>
+                        </div>
+                    </Col>
+                    <Col span={6}>
+                        <div className="eventCommingSoon">
+                            <div> MU vs ARS</div>
+                            <div className="eventSubInfo"><ClockCircleOutlined style={{ margin: 10 }} /> 20:00</div>
+                            <div className="eventSubInfo"><ScheduleOutlined style={{ margin: 10 }} />20/3/2022</div>
+                            <div className="eventSubInfo"><DollarCircleOutlined style={{ margin: 10 }} />20.000 vnd</div>
+                            <Button className="p-button-success" style={{height:10}}>Join</Button>
                         </div>
 
                     </Col>
@@ -62,8 +73,8 @@ const HomePage = () => {
                             <div className="eventSubInfo"><ClockCircleOutlined style={{ margin: 10 }} /> 20:00</div>
                             <div className="eventSubInfo"><ScheduleOutlined style={{ margin: 10 }} />20/3/2022</div>
                             <div className="eventSubInfo"><DollarCircleOutlined style={{ margin: 10 }} />20.000 vnd</div>
+                            <Button className="p-button-success" style={{height:10}}>Join</Button>
                         </div>
-
                     </Col>
                     <Col span={6}>
                         <div className="eventCommingSoon">
@@ -71,19 +82,9 @@ const HomePage = () => {
                             <div className="eventSubInfo"><ClockCircleOutlined style={{ margin: 10 }} /> 20:00</div>
                             <div className="eventSubInfo"><ScheduleOutlined style={{ margin: 10 }} />20/3/2022</div>
                             <div className="eventSubInfo"><DollarCircleOutlined style={{ margin: 10 }} />20.000 vnd</div>
+                            <Button className="p-button-success" style={{height:10}}>Join</Button>
                         </div>
-
                     </Col>
-                    <Col span={6}>
-                        <div className="eventCommingSoon">
-                            <div> MU vs ARS</div>
-                            <div className="eventSubInfo"><ClockCircleOutlined style={{ margin: 10 }} /> 20:00</div>
-                            <div className="eventSubInfo"><ScheduleOutlined style={{ margin: 10 }} />20/3/2022</div>
-                            <div className="eventSubInfo"><DollarCircleOutlined style={{ margin: 10 }} />20.000 vnd</div>
-                        </div>
-
-                    </Col>
-
                 </Row>
             </div>
         </div>

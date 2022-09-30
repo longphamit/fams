@@ -1,6 +1,7 @@
 import axios from "axios";
 import { HOST } from "../constants/host";
 import { ACCESS_TOKEN } from "../constants/key";
+import {localStorageGetReduxState} from "../utils/StorageUtil"
 const controller = new AbortController();
 let cancelAxios = axios.CancelToken.source();
 axios.defaults.baseURL = HOST;
@@ -42,8 +43,8 @@ axios.interceptors.response.use(
   }
 );
 const getAccessToken = () => {
-  let accessToken = localStorage.getItem(ACCESS_TOKEN);
-  if (accessToken == null) {
+  let accessToken = localStorageGetReduxState()?.account?.jwt
+  if (!accessToken) {
     return "";
   }
   return accessToken;

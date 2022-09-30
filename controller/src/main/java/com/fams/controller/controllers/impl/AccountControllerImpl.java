@@ -5,21 +5,19 @@ import com.fams.manager.dtos.request.AddAccountRequest;
 import com.fams.manager.dtos.response.GetAccountResponse;
 import com.fams.manager.entities.AccountEntity;
 import com.fams.manager.repositories.AccountManager;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AccountControllerImpl implements AccountController {
-    private AccountManager accountManager;
+    private final AccountManager accountManager;
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
-    @Autowired
-    public AccountControllerImpl(AccountManager accountManager,ModelMapper modelMapper){
-        this.accountManager=accountManager;
-        this.modelMapper=modelMapper;
-    }
+
 
     @Override
     public GetAccountResponse add(AddAccountRequest addAccountRequest) {

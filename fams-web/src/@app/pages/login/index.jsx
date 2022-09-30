@@ -1,11 +1,12 @@
 import { Button, Col, Form, Input, Row, Spin } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { signInAPI } from "../../connectors/AuthenConnector";
 import { ACCOUNT, ACCOUNT_ID, JWT } from "../../constants/key";
 import { accountActions } from "../../redux/slices/AccountSlice";
+import { localStorageGetReduxState } from "../../utils/StorageUtil";
 import "./styles.scss"
 const validateMessages = {
     required: "${label} is required!",
@@ -21,29 +22,40 @@ const validateMessages = {
 const SignInPage = () => {
     const [isLoading, setLoading] = useState(false)
     const navigate = useNavigate()
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
     const onFinish = async ({ email, password }) => {
-        try{
+        try {
             setLoading(true)
-            const res=await signInAPI(email,password);
+            const res = await signInAPI(email, password);
             console.log(res)
             dispatch(accountActions.setAccountData(res.data.account))
+            dispatch(accountActions.setJwt(res.data.jwt))
             navigate("/")
             toast.success(res.message)
-        }catch(e){
+        } catch (e) {
             console.log(e)
             toast.error(e.response.data.message)
-        }finally{
+        } finally {
             setLoading(false)
         }
-        
     }
+    const checkSignined=()=>{
+        if(localStorageGetReduxState()?.account?.jwt){
+            navigate("/")
+        }
+    }
+    useEffect(() => {
+        checkSignined()
+    },[]);
     return (
         <div className="loginPage">
             <Row align="middle">
                 <Col span={8}></Col>
                 <Col span={8}>
                     <div className="loginForm">
+                        <h2 style={{ textAlign: "center", fontWeight: "bold", padding: 15 }}>
+                            FAMS Sign In
+                        </h2>
                         <Form
                             validateMessages={validateMessages}
                             name="basic"

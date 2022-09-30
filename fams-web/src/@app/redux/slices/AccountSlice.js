@@ -1,17 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    accountData:""
+    accountData: "",
+    jwt: ""
 };
 
 const account = createSlice({
     name: "account",
     initialState,
     reducers: {
-        setAccountData:(state,actions)=>{
-            state.accountData=actions.payload
+        setAccountData: (state, actions) => {
+            state.accountData = actions.payload
+        },
+        setJwt: (state, actions) => {
+            state.jwt = actions.payload
         }
-        
+
     },
 });
 

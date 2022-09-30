@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("v1/group")
+@RequestMapping("v1/groups")
 public class GroupAPI {
     @Autowired
     GroupController groupController;
@@ -21,4 +21,5 @@ public class GroupAPI {
                .message("Get groups success")
                .build();
     }
+
 }

@@ -1,9 +1,13 @@
 package com.fams.controller.configs;
 
+import com.fams.manager.constants.enums.EventStatusEnum;
+import com.fams.manager.constants.enums.EventTypeEnum;
 import com.fams.manager.constants.enums.RolesEnum;
 import com.fams.manager.entities.AccountEntity;
+import com.fams.manager.entities.EventEntity;
 import com.fams.manager.entities.GroupEntity;
 import com.fams.manager.repositories.AccountManager;
+import com.fams.manager.repositories.EventManager;
 import com.fams.manager.repositories.GroupManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -12,9 +16,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
 
 @Configuration
 public class DataSeedingConfig implements ApplicationListener<ContextRefreshedEvent> {
@@ -24,6 +27,9 @@ public class DataSeedingConfig implements ApplicationListener<ContextRefreshedEv
 
     @Autowired
     GroupManager groupManager;
+
+    @Autowired
+    EventManager eventManager;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -62,6 +68,19 @@ public class DataSeedingConfig implements ApplicationListener<ContextRefreshedEv
                     .name("abc")
                     .build();
             groupManager.save(groupEntity);
+
+            // Event
+            EventEntity eventEntity= EventEntity.builder()
+                    .creator(member)
+                    .fee(new BigDecimal(20000))
+                    .fromDate(Calendar.getInstance().getTime())
+                    .type(EventTypeEnum.BET.name())
+                    .status(EventStatusEnum.PROCESSING.name())
+                    .members(Arrays.asList(member))
+                    .groupId(groupEntity.getId())
+                    .name("MU vs VN")
+                    .build();
+            eventManager.save(eventEntity);
         }
 
     }

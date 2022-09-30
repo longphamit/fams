@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, PATH } from "../../@app/constants/key";
 import LoginPage from "../../@app/pages/login";
 import UnAuthenPage from "../../@app/pages/unauthen";
+import { localStorageGetReduxState } from "../../@app/utils/StorageUtil";
+import HomePage from "../pages/member/home";
 
 const RouterAppElement = ({
     component: Component,
@@ -10,15 +13,16 @@ const RouterAppElement = ({
     path,
     roles,
   }) => {
-    console.log(path)
-    // const access_token = localStorage.getItem(ACCESS_TOKEN);
-    // sessionStorage.setItem(PATH, path);
-    // if (!access_token && authen) {
-    //   if (path === "/") {
-    //     return <LoginPage />;
-    //   }
-    //   return <UnAuthenPage />;
-    // }
+
+    const access_token = localStorageGetReduxState()?.account?.jwt;
+    sessionStorage.setItem(PATH, path);
+    if (!access_token && authen) {
+      if (path === "/signin") {
+        return <LoginPage />;
+      }
+      return <UnAuthenPage />;
+    }
+    
     // if (access_token && authen) {
     //   // return <Navigate to="/admin-home"/>
     //   const role = localStorageGetReduxState().auth.role;

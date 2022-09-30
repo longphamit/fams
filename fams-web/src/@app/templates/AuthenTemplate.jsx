@@ -10,9 +10,16 @@ import {
 } from "@ant-design/icons";
 import { RiTeamFill } from 'react-icons/ri';
 import { useNavigate } from "react-router-dom";
+import { localStorageSaveReduxState } from "../utils/StorageUtil";
 const { Header, Content, Sider } = Layout;
 const AuthenTemplate = ({ children }) => {
   const navigator = useNavigate()
+  const signOut=async()=>{
+    localStorage.clear();
+    navigator("/signin")
+    window.location.reload();
+
+  }
   return (<>
     <div className="layout">
       <Layout>
@@ -51,6 +58,9 @@ const AuthenTemplate = ({ children }) => {
               </Menu.Item>
               <Menu.Item icon={<StarFilled />} >
                 Event
+              </Menu.Item>
+              <Menu.Item icon={<LogoutOutlined />} onClick={()=>{signOut()}}>
+                Sign out
               </Menu.Item>
             </Menu>
           </Sider>

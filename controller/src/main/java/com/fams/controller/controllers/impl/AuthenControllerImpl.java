@@ -4,20 +4,17 @@ import com.fams.controller.controllers.AuthenController;
 import com.fams.controller.models.AccountDetailAuthenModel;
 import com.fams.manager.entities.AccountEntity;
 import com.fams.manager.repositories.AccountManager;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AuthenControllerImpl implements AuthenController {
 
-    private AccountManager accountManager;
-
-    @Autowired
-    public AuthenControllerImpl(AccountManager accountManager) {
-        this.accountManager = accountManager;
-    }
+    private final AccountManager accountManager;
 
     @Override
     @SneakyThrows

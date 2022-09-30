@@ -1,11 +1,12 @@
-package com.fams.manager.entities;
+package com.fams.manager.dtos.response;
 
+import com.fams.manager.entities.AccountEntity;
+import com.fams.manager.entities.EventActionEntity;
+import com.fams.manager.entities.EventElementEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,9 +16,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "Event")
-public class EventEntity {
-    @Id
+public class GetEventResponse {
     private String id;
     private String name;
     private Date createdAt;
@@ -31,5 +30,4 @@ public class EventEntity {
     private AccountEntity creator;
     private String status;
     private String result;
-    private String groupId;
 }
