@@ -20,7 +20,7 @@ public class EventActionEntity {
     private String type;
     private String value;
     private Date createdAt;
-    private AccountEntity creator;
+    private String creator;
     private String eventId;
     private String referId;
 }

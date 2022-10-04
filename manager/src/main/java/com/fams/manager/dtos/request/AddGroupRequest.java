@@ -1,4 +1,4 @@
-package com.fams.manager.dtos.response;
+package com.fams.manager.dtos.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetGroupResponse {
-    private String id;
+public class AddGroupRequest {
     private String name;
-    private GetAccountResponse creator;
 }

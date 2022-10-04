@@ -8,8 +8,33 @@ import {
     DollarCircleOutlined
 } from "@ant-design/icons";
 import { Button } from "primereact/button";
+import { getEventsAPI } from "../../../connectors/EventConnector";
+import { useEffect, useState } from "react";
+import EventsCards from "../../../components/cards/events_card";
+import { countGroupAPI } from "../../../connectors/GroupConnector";
 const HomePage = () => {
-    return (<div className="memberHomePage">
+    const [joinedEvent,setJoinedEvent] = useState();
+    const [notJoinedEvent,setNotJoinedEvent]=useState();
+    const [countGroup,setCountGroup]=useState();
+    const getJoinedEvent=async()=>{
+        const res=await getEventsAPI(true)
+        setJoinedEvent(res.data)
+    }
+    const getNotJoinedEvent=async()=>{
+        const res=await getEventsAPI(false)
+        setNotJoinedEvent(res.data)
+    }
+    const countGroupFunc=async()=>{
+        const res=await countGroupAPI()
+        setCountGroup(res.data)
+    }
+    useEffect(()=>{
+        getJoinedEvent()
+        getNotJoinedEvent()
+        countGroupFunc()
+    },[])
+    return (
+    <div className="memberHomePage">
         <div className="dashBoard">
             <div className="firstRow">
                 <Row gutter={[16, 16]}>
@@ -17,7 +42,7 @@ const HomePage = () => {
                         <div className="col" id="groups">
                             <RiTeamFill /> Groups
                             <div>
-                                12
+                                {countGroup}
                             </div>
                         </div>
                     </Col>
@@ -37,7 +62,7 @@ const HomePage = () => {
                 <Row>
                     <Col span={22}>
                         <div className="title">
-                            Events Comming Soon
+                            Event Joined
                         </div></Col>
                     <Col>
                         <div className="more">
@@ -47,45 +72,25 @@ const HomePage = () => {
                 </Row>
             </div>
             <div>
-                <Row gutter={[16, 16]}>
-                    <Col span={6}>
-                        <div className="eventCommingSoon">
-                            <div> MU vs ARS</div>
-                            <div className="eventSubInfo"><ClockCircleOutlined style={{ margin: 10 }} /> 20:00</div>
-                            <div className="eventSubInfo"><ScheduleOutlined style={{ margin: 10 }} />20/3/2022</div>
-                            <div className="eventSubInfo"><DollarCircleOutlined style={{ margin: 10 }} />20.000 vnd</div>
-                            <Button className="p-button-success" style={{height:10}}>Join</Button>
-                        </div>
-                    </Col>
-                    <Col span={6}>
-                        <div className="eventCommingSoon">
-                            <div> MU vs ARS</div>
-                            <div className="eventSubInfo"><ClockCircleOutlined style={{ margin: 10 }} /> 20:00</div>
-                            <div className="eventSubInfo"><ScheduleOutlined style={{ margin: 10 }} />20/3/2022</div>
-                            <div className="eventSubInfo"><DollarCircleOutlined style={{ margin: 10 }} />20.000 vnd</div>
-                            <Button className="p-button-success" style={{height:10}}>Join</Button>
-                        </div>
-
-                    </Col>
-                    <Col span={6}>
-                        <div className="eventCommingSoon">
-                            <div> MU vs ARS</div>
-                            <div className="eventSubInfo"><ClockCircleOutlined style={{ margin: 10 }} /> 20:00</div>
-                            <div className="eventSubInfo"><ScheduleOutlined style={{ margin: 10 }} />20/3/2022</div>
-                            <div className="eventSubInfo"><DollarCircleOutlined style={{ margin: 10 }} />20.000 vnd</div>
-                            <Button className="p-button-success" style={{height:10}}>Join</Button>
-                        </div>
-                    </Col>
-                    <Col span={6}>
-                        <div className="eventCommingSoon">
-                            <div> MU vs ARS</div>
-                            <div className="eventSubInfo"><ClockCircleOutlined style={{ margin: 10 }} /> 20:00</div>
-                            <div className="eventSubInfo"><ScheduleOutlined style={{ margin: 10 }} />20/3/2022</div>
-                            <div className="eventSubInfo"><DollarCircleOutlined style={{ margin: 10 }} />20.000 vnd</div>
-                            <Button className="p-button-success" style={{height:10}}>Join</Button>
+                <EventsCards events={joinedEvent}/>
+            </div>
+        </div>
+        <div className="body">
+            <div className="rowTitle">
+                <Row>
+                    <Col span={22}>
+                        <div className="title">
+                            Event Not Joined
+                        </div></Col>
+                    <Col>
+                        <div className="more">
+                            more
                         </div>
                     </Col>
                 </Row>
+            </div>
+            <div>
+                <EventsCards events={notJoinedEvent}/>
             </div>
         </div>
     </div>)

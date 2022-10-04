@@ -3,6 +3,7 @@ package com.fams.manager.dtos.response;
 import com.fams.manager.entities.AccountEntity;
 import com.fams.manager.entities.EventActionEntity;
 import com.fams.manager.entities.EventElementEntity;
+import com.fams.manager.entities.GroupEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class GetEventResponse {
     private List<EventActionEntity> actions;
     private List<EventElementEntity> elements;
     private List<AccountEntity> members;
+    private GroupEntity group;
     private AccountEntity creator;
     private String status;
     private String result;

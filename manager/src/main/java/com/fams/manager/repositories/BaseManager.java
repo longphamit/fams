@@ -63,6 +63,10 @@ public class BaseManager<T> {
     public T findById(String id) {
         return mongoTemplate.findById(id, cClass);
     }
+    public List<T> findByIds(List<String> ids) {
+        Query query= Query.query(Criteria.where("id").in(ids));
+        return mongoTemplate.find(query, cClass);
+    }
 
     public List<T> findAll() {
         return mongoTemplate.findAll(cClass);

@@ -17,4 +17,10 @@ public class ExceptionHandle extends ResponseEntityExceptionHandler {
                 ObjectWrapperResponse.builder().message("Email or password invalid").build()
         );
     }
+    @ExceptionHandler({IllegalArgumentException.class})
+    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException illegalArgumentException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                ObjectWrapperResponse.builder().message(illegalArgumentException.getMessage()).build()
+        );
+    }
 }

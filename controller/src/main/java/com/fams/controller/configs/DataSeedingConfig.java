@@ -59,11 +59,22 @@ public class DataSeedingConfig implements ApplicationListener<ContextRefreshedEv
             member.setRoles(roles);
             accountManager.save(member);
 
+
+            AccountEntity member2 = new AccountEntity();
+            member2.setEmail("member2@yopmail.com");
+            member2.setUserName("member2");
+            member2.setEnabled(true);
+            member2.setPassword(passwordEncoder.encode("Goboi123"));
+            roles.add(RolesEnum.MEMBER.getValue());
+            member2.setRoles(roles);
+            accountManager.save(member2);
+
             // Group
-            List<AccountEntity> members = new ArrayList<>();
-            members.add(member);
+            List<String> members = new ArrayList<>();
+            members.add(member.getId());
+            members.add(member2.getId());
             GroupEntity groupEntity = GroupEntity.builder()
-                    .admin(member)
+                    .admin(member.getId())
                     .members(members)
                     .name("abc")
                     .build();
@@ -71,16 +82,27 @@ public class DataSeedingConfig implements ApplicationListener<ContextRefreshedEv
 
             // Event
             EventEntity eventEntity= EventEntity.builder()
-                    .creator(member)
+                    .creator(member.getId())
                     .fee(new BigDecimal(20000))
                     .fromDate(Calendar.getInstance().getTime())
                     .type(EventTypeEnum.BET.name())
                     .status(EventStatusEnum.PROCESSING.name())
-                    .members(Arrays.asList(member))
+                    .members(Arrays.asList(member.getId()))
                     .groupId(groupEntity.getId())
                     .name("MU vs VN")
                     .build();
             eventManager.save(eventEntity);
+            EventEntity eventEntity2= EventEntity.builder()
+                    .creator(member2.getId())
+                    .fee(new BigDecimal(20000))
+                    .fromDate(Calendar.getInstance().getTime())
+                    .type(EventTypeEnum.BET.name())
+                    .status(EventStatusEnum.PROCESSING.name())
+                    .members(Arrays.asList(member2.getId()))
+                    .groupId(groupEntity.getId())
+                    .name("MU vs ARS")
+                    .build();
+            eventManager.save(eventEntity2);
         }
 
     }

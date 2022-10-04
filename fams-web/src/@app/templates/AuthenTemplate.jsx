@@ -14,7 +14,7 @@ import { localStorageSaveReduxState } from "../utils/StorageUtil";
 const { Header, Content, Sider } = Layout;
 const AuthenTemplate = ({ children }) => {
   const navigator = useNavigate()
-  const signOut=async()=>{
+  const signOut = async () => {
     localStorage.clear();
     navigator("/signin")
     window.location.reload();
@@ -25,18 +25,20 @@ const AuthenTemplate = ({ children }) => {
       <Layout>
         <Header className="header">
           <Row>
-            <Col span={10}>
+            <Col span={2}>
               <div className="logo" />
-              <h2
-                style={{ fontWeight: "bold", color: "#fff" }}
-                onClick={() => {
+              
+                <h2
+                  style={{ fontWeight: "bold", color: "#fff", }}
+                  onClick={() => {
 
-                }}
-              >
-                FAMS
-              </h2>
+                  }}
+                >
+                  FAMS
+                </h2>
+              
             </Col>
-            <Col span={13} />
+            <Col span={20} />
 
             <Col span={1}>
               <UserOutlined style={{ fontSize: 20, color: "#fff", fontWeight: "bold" }} />
@@ -56,10 +58,10 @@ const AuthenTemplate = ({ children }) => {
               <Menu.Item icon={<RiTeamFill />} onClick={() => { navigator("/group") }} >
                 Group
               </Menu.Item>
-              <Menu.Item icon={<StarFilled />} >
+              <Menu.Item icon={<StarFilled />} onClick={() => { navigator("/event") }}>
                 Event
               </Menu.Item>
-              <Menu.Item icon={<LogoutOutlined />} onClick={()=>{signOut()}}>
+              <Menu.Item icon={<LogoutOutlined />} onClick={() => { signOut() }}>
                 Sign out
               </Menu.Item>
             </Menu>

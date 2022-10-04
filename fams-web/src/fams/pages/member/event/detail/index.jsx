@@ -1,0 +1,5 @@
+const EventDetailPage=()=>{
+    return (
+    <>
+    </>)
+}

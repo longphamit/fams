@@ -1,7 +1,8 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 import { HOST } from "../constants/host";
 import { ACCESS_TOKEN } from "../constants/key";
-import {localStorageGetReduxState} from "../utils/StorageUtil"
+import { localStorageGetReduxState } from "../utils/StorageUtil"
 const controller = new AbortController();
 let cancelAxios = axios.CancelToken.source();
 axios.defaults.baseURL = HOST;
@@ -14,30 +15,31 @@ axios.interceptors.response.use(
     const originalConfig = err.config;
     if (originalConfig.url !== "/signin" && err.response) {
       // Access Token was expired
-    //   if (err.response.status === 403) {
-    //     toast.error("You are not allow!");
-    //   }
-    //   if (err.response.status === 401 && !originalConfig._retry) {
-    //     originalConfig._retry = true;
-    //     localStorage.removeItem("ACCESS_TOKEN");
-    //     cancelAxios.cancel("----stop all request---");
-    //     toast.error("Your session is expired! Please login again");
-    //     setTimeout(() => {
-    //       localStorage.clear()
-    //       window.location.href = "/signin";
-    //     }, 3000);
-    //     controller.abort();
-    //     // try {
-    //     //   const rs = await axios.post("/auth/refreshtoken", {
-    //     //     refreshToken: localStorage.getItem("REFRESH_TOKEN"),
-    //     //   });
-    //     //   const { token } = rs.data;
-    //     //   localStorage.setItem("TOKEN", token);
-    //     //   return axios(originalConfig);
-    //     // } catch (_error) {
-    //     //   return Promise.reject(_error);
-    //     // }
-    //   }
+      if (err.response.status === 403) {
+        toast.error("Please login!");
+        setTimeout(() => {
+          localStorage.clear()
+          window.location.href = "/signin";
+        }, 3000);
+      }
+      //   if (err.response.status === 401 && !originalConfig._retry) {
+      //     originalConfig._retry = true;
+      //     localStorage.removeItem("ACCESS_TOKEN");
+      //     cancelAxios.cancel("----stop all request---");
+      //     toast.error("Your session is expired! Please login again");
+
+      //     controller.abort();
+      //     // try {
+      //     //   const rs = await axios.post("/auth/refreshtoken", {
+      //     //     refreshToken: localStorage.getItem("REFRESH_TOKEN"),
+      //     //   });
+      //     //   const { token } = rs.data;
+      //     //   localStorage.setItem("TOKEN", token);
+      //     //   return axios(originalConfig);
+      //     // } catch (_error) {
+      //     //   return Promise.reject(_error);
+      //     // }
+      //   }
     }
     return Promise.reject(err);
   }

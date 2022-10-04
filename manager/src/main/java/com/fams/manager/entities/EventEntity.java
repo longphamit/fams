@@ -22,13 +22,14 @@ public class EventEntity {
     private String name;
     private Date createdAt;
     private Date fromDate;
+    private String description;
     private Date toDate;
     private String type;
     private BigDecimal fee;
     private List<EventActionEntity> actions;
     private List<EventElementEntity> elements;
-    private List<AccountEntity> members;
-    private AccountEntity creator;
+    private List<String> members;
+    private String creator;
     private String status;
     private String result;
     private String groupId;

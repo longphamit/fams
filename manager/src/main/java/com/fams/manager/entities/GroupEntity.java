@@ -19,7 +19,8 @@ public class GroupEntity {
     @Id
     private String id;
     private String name;
-    private List<AccountEntity> members;
-    private AccountEntity admin;
+    private List<String> members;
+    private List<EventElementEntity> eventElements;
+    private String admin;
     private Date createdAt;
 }
