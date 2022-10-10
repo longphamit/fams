@@ -2,6 +2,7 @@ package com.fams.restgateway.apis;
 
 import com.fams.controller.controllers.GroupController;
 import com.fams.controller.models.AccountDetailAuthenModel;
+import com.fams.manager.dtos.request.AddGroupEventElementRequest;
 import com.fams.manager.dtos.request.AddGroupMemberRequest;
 import com.fams.manager.dtos.request.AddGroupRequest;
 import com.fams.manager.dtos.response.ObjectWrapperResponse;
@@ -18,11 +19,9 @@ public class GroupAPI {
     GroupController groupController;
 
     @GetMapping
-    public WrapperResponse getGroups(Authentication authentication) {
-        AccountDetailAuthenModel accountDetailAuthenModel = (AccountDetailAuthenModel) authentication.getPrincipal();
-        String accountId = accountDetailAuthenModel.getAccountEntity().getId();
+    public WrapperResponse getGroups() {
         return ObjectWrapperResponse.builder()
-                .data(groupController.findByMemberId(accountId))
+                .data(groupController.findByMemberId())
                 .message("Get groups success")
                 .build();
     }
@@ -67,21 +66,24 @@ public class GroupAPI {
 
     @GetMapping("{id}/event-elements")
     public WrapperResponse getEventElements() {
-
+        return WrapperResponse.builder().build();
     }
 
     @PostMapping("{id}/event-elements")
-    public WrapperResponse addEventElement() {
+    public WrapperResponse addEventElement(
+            @PathVariable("id") String id,
+            @RequestBody AddGroupEventElementRequest addGroupEventElementRequest) {
 
+        return WrapperResponse.builder().data(groupController.addEventElement(id,addGroupEventElementRequest))
+                .message("Add event element success")
+                .build();
     }
 
 
     @GetMapping("/count")
-    public WrapperResponse countGroup(Authentication authentication) {
-        AccountDetailAuthenModel accountDetailAuthenModel = (AccountDetailAuthenModel) authentication.getPrincipal();
-        AccountEntity account = accountDetailAuthenModel.getAccountEntity();
+    public WrapperResponse countGroup() {
         return ObjectWrapperResponse.builder()
-                .data(groupController.countJoinedGroup(account.getId()))
+                .data(groupController.countJoinedGroup())
                 .message("Count groups success")
                 .build();
     }

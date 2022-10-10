@@ -8,3 +8,11 @@ export const signInAPI=async(email,password)=>{
      })
      return response.data
  };
+ export const signUpAPI=async(username,email,password)=>{
+    const response= await request.post(`${HOST}/v1/auth/sign-up`,{
+        username,
+        email,
+        password
+    })
+    return response.data
+ }

@@ -1,12 +1,13 @@
 package com.fams.controller.controllers.impl;
 
 import com.fams.controller.controllers.GroupController;
+import com.fams.controller.utils.AuthenUtil;
 import com.fams.controller.utils.MapperUtil;
-import com.fams.manager.dtos.request.AddGroupMemberRequest;
-import com.fams.manager.dtos.request.AddGroupRequest;
+import com.fams.manager.dtos.request.*;
 import com.fams.manager.dtos.response.GetAccountResponse;
 import com.fams.manager.dtos.response.GetGroupResponse;
 import com.fams.manager.entities.AccountEntity;
+import com.fams.manager.entities.EventElementEntity;
 import com.fams.manager.entities.GroupEntity;
 import com.fams.manager.repositories.AccountManager;
 import com.fams.manager.repositories.GroupManager;
@@ -25,8 +26,9 @@ public class GroupControllerImpl implements GroupController {
     private final AccountManager accountManager;
 
     @Override
-    public List<GetGroupResponse> findByMemberId(String memberId) {
-        List<GroupEntity> groupEntities= groupManager.findByMemberId(memberId);
+    public List<GetGroupResponse> findByMemberId() {
+        String accountId=AuthenUtil.getAccountIdByAuthenContext();
+        List<GroupEntity> groupEntities= groupManager.findByMemberId(accountId);
         if(groupEntities==null||groupEntities.size()==0){
             return new ArrayList<>();
         }
@@ -56,17 +58,28 @@ public class GroupControllerImpl implements GroupController {
         return MapperUtil.map(groupManager.save(groupEntity),GetGroupResponse.class);
     }
     public List<GetAccountResponse> addMembers(String groupId, AddGroupMemberRequest addGroupMemberRequest){
-        groupManager.addMember(groupId,addGroupMemberRequest.getMemberIds());
-        return findMembers(groupId);
+        if(groupManager.addMember(groupId,addGroupMemberRequest.getMemberIds())){
+            return findMembers(groupId);
+        }
+        throw new IllegalArgumentException("Add member fail");
     }
     public List<GetAccountResponse> findMembers(String groupId){
         List<String> members= groupManager.getMembers(groupId);
         return MapperUtil.map(accountManager.findByIds(members),GetAccountResponse.class);
     }
-    public long countJoinedGroup(String memberId){
-        return groupManager.countJoinedGroup(memberId);
+    public long countJoinedGroup(){
+        String accountId= AuthenUtil.getAccountIdByAuthenContext();
+        return groupManager.countJoinedGroup(accountId);
     }
     public GetGroupResponse findById(String id){
-        return MapperUtil.map(groupManager.findById(id),GetGroupResponse.class);
+        GroupEntity groupEntity=groupManager.findById(id);
+        GetGroupResponse getGroupResponse=MapperUtil.map(groupEntity,GetGroupResponse.class);
+        getGroupResponse.setCreator(MapperUtil.map(accountManager.findById(groupEntity.getAdmin()),GetAccountResponse.class));
+        return getGroupResponse;
+    }
+    public GetEventElementRequest addEventElement(String groupId, AddGroupEventElementRequest addEventElementRequest){
+        EventElementEntity eventElement= MapperUtil.map(addEventElementRequest,EventElementEntity.class);
+        groupManager.addEventElement(groupId,eventElement);
+        return null;
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ExceptionHandle extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({InvalidSignInException.class})
-    public ResponseEntity<Object> handleException() {
+    public ResponseEntity<Object> handleSignInException() {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
                 ObjectWrapperResponse.builder().message("Email or password invalid").build()
         );

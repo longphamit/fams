@@ -56,7 +56,7 @@ const GroupTable = () => {
                         </Button>
                     </div>
                     <div>
-                        <Button >
+                        <Button>
                             <UsergroupAddOutlined />
                         </Button>
                     </div>

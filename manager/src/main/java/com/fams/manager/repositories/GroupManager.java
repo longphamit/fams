@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class GroupManager extends BaseManager<GroupEntity> {
@@ -33,27 +34,42 @@ public class GroupManager extends BaseManager<GroupEntity> {
     }
 
     public boolean addEventElement(String groupId, EventElementEntity eventElement) {
+        eventElement.setId(new ObjectId().toHexString());
         Query query = Query.query(Criteria.where("id").is(new ObjectId(groupId)));
         Update update = new Update();
-        update.push("eventElements", eventElement);
-        UpdateResult updateResult = mongoTemplate.updateFirst(query, update, EventEntity.class);
+        update.addToSet("eventElements", eventElement);
+        UpdateResult updateResult = mongoTemplate.updateFirst(query, update, GroupEntity.class);
         return updateResult.getModifiedCount() > 0;
     }
 
     public boolean addMember(String groupId, List<String> accounts) {
         Query query = Query.query(Criteria.where("id").is(new ObjectId(groupId)));
         Update update = new Update();
-        update.push("members", accounts);
-        UpdateResult updateResult = mongoTemplate.updateFirst(query, update, EventEntity.class);
+        for(String account:accounts){
+            update.addToSet("members",account);
+        }
+        UpdateResult updateResult = mongoTemplate.updateFirst(query, update, GroupEntity.class);
         return updateResult.getModifiedCount() > 0;
     }
-    public List<String> getMembers(String groupId){
+
+    public List<String> getMembers(String groupId) {
         Query query = Query.query(Criteria.where("id").is(new ObjectId(groupId)));
         query.fields().include("members");
-        GroupEntity groupEntity= mongoTemplate.findOne(query, GroupEntity.class);
-        if(groupEntity==null){
+        GroupEntity groupEntity = mongoTemplate.findOne(query, GroupEntity.class);
+        if (groupEntity == null) {
             return null;
         }
         return groupEntity.getMembers();
+    }
+
+    public List<EventElementEntity> getEventElements(String groupId, List<String> eventElements) {
+        Query query = Query.query(Criteria.where("id").is(new ObjectId(groupId)));
+        query.addCriteria(Criteria.where("eventElements.id").in(eventElements));
+        query.fields().include("eventElements");
+        GroupEntity groupEntity = mongoTemplate.findOne(query, GroupEntity.class);
+        if (groupEntity == null) {
+            return null;
+        }
+        return groupEntity.getEventElements().stream().filter(e->eventElements.contains(e.getId())).collect(Collectors.toList());
     }
 }

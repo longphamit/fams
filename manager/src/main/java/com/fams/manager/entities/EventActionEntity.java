@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -22,5 +23,7 @@ public class EventActionEntity {
     private Date createdAt;
     private String creator;
     private String eventId;
-    private String referId;
+    private String accountId;
+    private String groupId;
+    private List<String> elementIds;
 }

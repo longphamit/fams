@@ -39,14 +39,14 @@ const SignInPage = () => {
             setLoading(false)
         }
     }
-    const checkSignined=()=>{
-        if(localStorageGetReduxState()?.account?.jwt){
+    const checkSignined = () => {
+        if (localStorageGetReduxState()?.account?.jwt) {
             navigate("/")
         }
     }
     useEffect(() => {
         checkSignined()
-    },[]);
+    }, []);
     return (
         <div className="loginPage">
             <Row align="middle">
@@ -106,6 +106,13 @@ const SignInPage = () => {
                                             Sign in
                                         </Button>
                                     )}
+                                </Form.Item>
+                            </Row>
+                            <Row justify="center" align="middle">
+                                <Form.Item>
+                                    <Button onClick={()=>navigate("/signup")}>
+                                        Sign Up
+                                    </Button>
                                 </Form.Item>
                             </Row>
                         </Form>

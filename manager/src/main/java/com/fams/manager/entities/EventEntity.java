@@ -27,7 +27,7 @@ public class EventEntity {
     private String type;
     private BigDecimal fee;
     private List<EventActionEntity> actions;
-    private List<EventElementEntity> elements;
+    private List<String> elements;
     private List<String> members;
     private String creator;
     private String status;
