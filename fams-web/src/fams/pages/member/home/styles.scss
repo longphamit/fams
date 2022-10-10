@@ -1,0 +1,27 @@
+@import "../../../../scss/variable";
+
+.memberHomePage {
+    .dashBoard {
+        .firstRow {
+            font-weight: bold;
+            text-align: center;
+
+            #groups {
+                padding: 20px;
+                background-color: #ef9a3e;
+            }
+
+            #events {
+                padding: 20px;
+                background-color: #B334F3;
+            }
+
+            .col {
+                border-radius: 10px;
+                border: 20px;
+                color: #fff;
+                font-size: large;
+            }
+        }
+    }
+}

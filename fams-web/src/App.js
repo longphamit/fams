@@ -1,11 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
+import "./scss/styles.scss";
+
 import { RouterProvider } from 'react-router-dom';
-import router from './fams/routers/routerConfigs';
+import AppRouter from './fams/routers/routers';
+import { Provider } from 'react-redux';
+import store from './@app/redux/store';
+import { ToastContainer } from 'react-toastify';
+
 
 function App() {
   return (
-    <RouterProvider router={router}/>
+    <Provider store={store}>
+      <AppRouter/>
+      <ToastContainer />
+    </Provider>
   );
 }
 

@@ -18,7 +18,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 public class AccountDetailAuthenModel implements UserDetails {
-    AccountEntity accountEntity;
+    private AccountEntity accountEntity;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -58,5 +58,9 @@ public class AccountDetailAuthenModel implements UserDetails {
     @Override
     public boolean isEnabled() {
         return accountEntity.isEnabled();
+    }
+
+    public AccountEntity getAccountEntity(){
+        return accountEntity;
     }
 }
