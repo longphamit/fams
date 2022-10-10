@@ -18,9 +18,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>rest-gateway</module>
-        <module>controller</module>
         <module>manager</module>
+        <module>controller</module>
+        <module>rest-gateway</module>
     </modules>
 
     <dependencies>
@@ -80,6 +80,12 @@
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <type>maven-plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-war-plugin</artifactId>
             <version>2.6</version>
             <type>maven-plugin</type>
@@ -109,12 +115,16 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>../omni-channel/output/war</directory>
+                            <directory>../output/jar</directory>
                             <includes>
                                 <include>**/*</include>
                             </includes>
@@ -125,9 +135,23 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <useIncrementalCompilation>false</useIncrementalCompilation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <outputDirectory>../omni-channel/output/war</outputDirectory>
+                    <outputDirectory>../output/jar</outputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>../output/jar</outputDirectory>
                 </configuration>
             </plugin>
             <plugin>

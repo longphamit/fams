@@ -3,6 +3,13 @@ spring:
     group:
       dev:
         - manager-dev
+  data:
+    mongodb:
+      uri: mongodb://root:Goboi123@45.119.212.77:9917/fams?authSource=admin
+    jpa:
+      show-sql: true
 springdoc:
   api-docs:
     path: /api-docs
+server:
+  port: 8081
