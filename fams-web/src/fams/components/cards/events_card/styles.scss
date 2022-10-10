@@ -1,0 +1,28 @@
+.eventsCards {
+    .event {
+        border-radius: 20px;
+        padding: 30px;
+        
+        border: 10px;
+        text-align: center;
+        box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+        
+        .eventSubInfo {
+            font-weight: lighter;
+            text-align: left;
+            font-size: 14px;
+            color: blue;
+            font-weight: bold;
+        }
+        .button{
+            font-size: 14px;
+            font-weight: bold;
+            margin: 10px;
+        }
+        .name{
+            font-size: 20px;
+            font-weight: bold;
+            
+        }
+    }
+}
