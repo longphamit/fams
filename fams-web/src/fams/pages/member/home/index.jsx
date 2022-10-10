@@ -17,11 +17,12 @@ const HomePage = () => {
     const [notJoinedEvent,setNotJoinedEvent]=useState();
     const [countGroup,setCountGroup]=useState();
     const getJoinedEvent=async()=>{
-        const res=await getEventsAPI(true)
+        const res=await getEventsAPI(true,false)
         setJoinedEvent(res.data)
     }
     const getNotJoinedEvent=async()=>{
-        const res=await getEventsAPI(false)
+        const res=await getEventsAPI(false,false)
+        console.log(res.data)
         setNotJoinedEvent(res.data)
     }
     const countGroupFunc=async()=>{

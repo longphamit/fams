@@ -24,7 +24,7 @@ public class AccountEntity {
     @Indexed
     private String email;
     @Indexed
-    private String userName;
+    private String username;
     private String password;
     private boolean isEnabled;
     private Set<String> roles;

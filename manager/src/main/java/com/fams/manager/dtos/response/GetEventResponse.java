@@ -32,4 +32,5 @@ public class GetEventResponse {
     private AccountEntity creator;
     private String status;
     private String result;
+    private boolean isJoined;
 }

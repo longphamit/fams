@@ -37,7 +37,7 @@ public class DataSeedingConfig implements ApplicationListener<ContextRefreshedEv
         if (accountManager.findByEmail("admin@yopmail.com") == null) {
             AccountEntity admin = new AccountEntity();
             admin.setEmail("admin@yopmail.com");
-            admin.setUserName("admin");
+            admin.setUsername("admin");
             admin.setPassword(passwordEncoder.encode("Goboi123"));
             HashSet<String> roles = new HashSet<>();
             roles.add(RolesEnum.ADMIN.getValue());
@@ -51,7 +51,7 @@ public class DataSeedingConfig implements ApplicationListener<ContextRefreshedEv
         if (accountManager.findByEmail("member@yopmail.com") == null) {
             AccountEntity member = new AccountEntity();
             member.setEmail("member@yopmail.com");
-            member.setUserName("member");
+            member.setUsername("member");
             member.setEnabled(true);
             member.setPassword(passwordEncoder.encode("Goboi123"));
             HashSet<String> roles = new HashSet<>();
@@ -62,47 +62,12 @@ public class DataSeedingConfig implements ApplicationListener<ContextRefreshedEv
 
             AccountEntity member2 = new AccountEntity();
             member2.setEmail("member2@yopmail.com");
-            member2.setUserName("member2");
+            member2.setUsername("member2");
             member2.setEnabled(true);
             member2.setPassword(passwordEncoder.encode("Goboi123"));
             roles.add(RolesEnum.MEMBER.getValue());
             member2.setRoles(roles);
             accountManager.save(member2);
-
-            // Group
-            List<String> members = new ArrayList<>();
-            members.add(member.getId());
-            members.add(member2.getId());
-            GroupEntity groupEntity = GroupEntity.builder()
-                    .admin(member.getId())
-                    .members(members)
-                    .name("abc")
-                    .build();
-            groupManager.save(groupEntity);
-
-            // Event
-            EventEntity eventEntity= EventEntity.builder()
-                    .creator(member.getId())
-                    .fee(new BigDecimal(20000))
-                    .fromDate(Calendar.getInstance().getTime())
-                    .type(EventTypeEnum.BET.name())
-                    .status(EventStatusEnum.PROCESSING.name())
-                    .members(Arrays.asList(member.getId()))
-                    .groupId(groupEntity.getId())
-                    .name("MU vs VN")
-                    .build();
-            eventManager.save(eventEntity);
-            EventEntity eventEntity2= EventEntity.builder()
-                    .creator(member2.getId())
-                    .fee(new BigDecimal(20000))
-                    .fromDate(Calendar.getInstance().getTime())
-                    .type(EventTypeEnum.BET.name())
-                    .status(EventStatusEnum.PROCESSING.name())
-                    .members(Arrays.asList(member2.getId()))
-                    .groupId(groupEntity.getId())
-                    .name("MU vs ARS")
-                    .build();
-            eventManager.save(eventEntity2);
         }
 
     }

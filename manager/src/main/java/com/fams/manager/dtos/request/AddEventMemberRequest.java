@@ -12,5 +12,5 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddEventMemberRequest {
-    private List<String> memberId;
+    private List<String> memberIds;
 }

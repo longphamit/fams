@@ -16,4 +16,5 @@ public class FindEventParamModel {
     private boolean isAdmin;
     private boolean isMember;
     private boolean isCreator;
+    private String groupId;
 }

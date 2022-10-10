@@ -1,9 +1,10 @@
 package com.fams.restgateway.apis;
 
 import com.fams.controller.components.JwtTokenProvider;
-import com.fams.controller.controllers.AuthenController;
+import com.fams.controller.controllers.AccountController;
 import com.fams.controller.exceptions.InvalidSignInException;
 import com.fams.controller.models.AccountDetailAuthenModel;
+import com.fams.manager.dtos.request.AddAccountRequest;
 import com.fams.manager.dtos.request.SignInRequest;
 import com.fams.manager.dtos.response.GetAccountResponse;
 import com.fams.manager.dtos.response.ObjectWrapperResponse;
@@ -29,11 +30,13 @@ public class AuthenAPI {
 
     private AccountManager accountManager;
     private JwtTokenProvider tokenProvider;
+    private AccountController accountController;
 
     @Autowired
-    public AuthenAPI(AuthenticationManager authenticationManager, JwtTokenProvider tokenProvider) {
+    public AuthenAPI(AccountController accountController, AuthenticationManager authenticationManager, JwtTokenProvider tokenProvider) {
         this.authenticationManager = authenticationManager;
         this.tokenProvider = tokenProvider;
+        this.accountController = accountController;
     }
 
     @PostMapping("sign-in")
@@ -49,15 +52,15 @@ public class AuthenAPI {
             // Nếu không xảy ra exception tức là thông tin hợp lệ
             // Set thông tin authentication vào Security Context
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            AccountDetailAuthenModel accountDetail= (AccountDetailAuthenModel) authentication.getPrincipal();
+            AccountDetailAuthenModel accountDetail = (AccountDetailAuthenModel) authentication.getPrincipal();
             // Trả về jwt cho người dùng.
             String jwt = tokenProvider.generateToken(accountDetail);
 
-            AccountEntity account=accountDetail.getAccountEntity();
-            GetAccountResponse getAccountResponse=GetAccountResponse.builder()
+            AccountEntity account = accountDetail.getAccountEntity();
+            GetAccountResponse getAccountResponse = GetAccountResponse.builder()
                     .id(account.getId())
                     .email(account.getEmail())
-                    .username(account.getUserName())
+                    .username(account.getUsername())
                     .roles(account.getRoles())
                     .build();
 
@@ -78,8 +81,8 @@ public class AuthenAPI {
     }
 
     @PostMapping("sign-up")
-    public void signUp() {
-
+    public void signUp(@RequestBody AddAccountRequest addAccountRequest) {
+        accountController.add(addAccountRequest);
     }
 
 }

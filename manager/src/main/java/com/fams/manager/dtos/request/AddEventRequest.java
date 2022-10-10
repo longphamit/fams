@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -20,4 +21,5 @@ public class AddEventRequest {
     private String type;
     private BigDecimal fee;
     private String groupId;
+    private List<String> elements;
 }
