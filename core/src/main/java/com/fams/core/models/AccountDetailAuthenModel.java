@@ -1,6 +1,6 @@
 package com.fams.core.models;
 
-import com.fams.manager.entities.AccountEntity;
+import com.fams.core.entities.AccountEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

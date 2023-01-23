@@ -2,12 +2,12 @@ package com.fams.restgateway.apis;
 
 import com.fams.core.controllers.GroupController;
 import com.fams.core.models.AccountDetailAuthenModel;
-import com.fams.manager.dtos.request.AddGroupEventElementRequest;
-import com.fams.manager.dtos.request.AddGroupMemberRequest;
-import com.fams.manager.dtos.request.AddGroupRequest;
-import com.fams.manager.dtos.response.ObjectWrapperResponse;
-import com.fams.manager.dtos.response.WrapperResponse;
-import com.fams.manager.entities.AccountEntity;
+import com.fams.core.dtos.request.AddGroupEventElementRequest;
+import com.fams.core.dtos.request.AddGroupMemberRequest;
+import com.fams.core.dtos.request.AddGroupRequest;
+import com.fams.core.dtos.response.ObjectWrapperResponse;
+import com.fams.core.dtos.response.WrapperResponse;
+import com.fams.core.entities.AccountEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;

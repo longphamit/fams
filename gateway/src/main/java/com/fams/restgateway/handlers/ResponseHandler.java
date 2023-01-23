@@ -1,7 +1,7 @@
 package com.fams.restgateway.handlers;
 
-import com.fams.manager.dtos.response.ObjectWrapperResponse;
-import com.fams.manager.dtos.response.WrapperResponse;
+import com.fams.core.dtos.response.ObjectWrapperResponse;
+import com.fams.core.dtos.response.WrapperResponse;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

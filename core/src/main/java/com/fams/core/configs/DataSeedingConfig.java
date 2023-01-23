@@ -1,10 +1,10 @@
 package com.fams.core.configs;
 
-import com.fams.manager.constants.enums.RolesEnum;
-import com.fams.manager.entities.AccountEntity;
-import com.fams.manager.repositories.AccountManager;
-import com.fams.manager.repositories.EventManager;
-import com.fams.manager.repositories.GroupManager;
+import com.fams.core.entities.AccountEntity;
+import com.fams.core.enums.RolesEnum;
+import com.fams.core.repositories.AccountManager;
+import com.fams.core.repositories.EventManager;
+import com.fams.core.repositories.GroupManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;

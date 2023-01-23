@@ -1,11 +1,11 @@
 package com.fams.core.controllers;
 
-import com.fams.manager.dtos.request.AddEventMemberRequest;
-import com.fams.manager.dtos.request.AddEventRequest;
-import com.fams.manager.dtos.request.GetEventElementRequest;
-import com.fams.manager.dtos.response.GetAccountResponse;
-import com.fams.manager.dtos.response.GetEventResponse;
-import com.fams.manager.models.FindEventParamModel;
+import com.fams.core.dtos.request.AddEventMemberRequest;
+import com.fams.core.dtos.request.AddEventRequest;
+import com.fams.core.dtos.request.GetEventElementRequest;
+import com.fams.core.dtos.response.GetAccountResponse;
+import com.fams.core.dtos.response.GetEventResponse;
+import com.fams.core.models.FindEventParamModel;
 
 import java.util.List;
 

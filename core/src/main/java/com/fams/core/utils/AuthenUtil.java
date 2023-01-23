@@ -1,7 +1,7 @@
 package com.fams.core.utils;
 
 import com.fams.core.models.AccountDetailAuthenModel;
-import com.fams.manager.entities.AccountEntity;
+import com.fams.core.entities.AccountEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 

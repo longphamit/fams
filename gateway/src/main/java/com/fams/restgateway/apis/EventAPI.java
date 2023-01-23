@@ -1,21 +1,20 @@
 package com.fams.restgateway.apis;
 
 import com.fams.core.controllers.EventController;
+import com.fams.core.enums.RolesEnum;
 import com.fams.core.models.AccountDetailAuthenModel;
 import com.fams.core.utils.AuthenUtil;
-import com.fams.manager.constants.enums.RolesEnum;
-import com.fams.manager.dtos.request.AddEventMemberRequest;
-import com.fams.manager.dtos.request.AddEventRequest;
-import com.fams.manager.dtos.request.GetAccountRequest;
-import com.fams.manager.dtos.response.GetAccountResponse;
-import com.fams.manager.dtos.response.GetEventResponse;
-import com.fams.manager.dtos.response.ObjectWrapperResponse;
-import com.fams.manager.dtos.response.WrapperResponse;
-import com.fams.manager.entities.AccountEntity;
-import com.fams.manager.models.FindEventParamModel;
+
+import com.fams.core.dtos.request.AddEventMemberRequest;
+import com.fams.core.dtos.request.AddEventRequest;
+import com.fams.core.dtos.response.GetAccountResponse;
+import com.fams.core.dtos.response.GetEventResponse;
+import com.fams.core.dtos.response.ObjectWrapperResponse;
+import com.fams.core.dtos.response.WrapperResponse;
+
+import com.fams.core.models.FindEventParamModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

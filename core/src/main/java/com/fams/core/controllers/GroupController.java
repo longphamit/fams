@@ -1,11 +1,11 @@
 package com.fams.core.controllers;
 
-import com.fams.manager.dtos.request.AddGroupEventElementRequest;
-import com.fams.manager.dtos.request.AddGroupMemberRequest;
-import com.fams.manager.dtos.request.AddGroupRequest;
-import com.fams.manager.dtos.request.GetEventElementRequest;
-import com.fams.manager.dtos.response.GetAccountResponse;
-import com.fams.manager.dtos.response.GetGroupResponse;
+import com.fams.core.dtos.request.AddGroupEventElementRequest;
+import com.fams.core.dtos.request.AddGroupMemberRequest;
+import com.fams.core.dtos.request.AddGroupRequest;
+import com.fams.core.dtos.request.GetEventElementRequest;
+import com.fams.core.dtos.response.GetAccountResponse;
+import com.fams.core.dtos.response.GetGroupResponse;
 
 import java.util.List;
 

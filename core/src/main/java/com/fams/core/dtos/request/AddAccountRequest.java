@@ -15,5 +15,4 @@ public class AddAccountRequest {
     private String username;
     private String email;
     private String password;
-    HttpServlet
 }

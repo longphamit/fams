@@ -2,8 +2,8 @@ package com.fams.core.controllers.impl;
 
 import com.fams.core.controllers.AuthenController;
 import com.fams.core.models.AccountDetailAuthenModel;
-import com.fams.manager.entities.AccountEntity;
-import com.fams.manager.repositories.AccountManager;
+import com.fams.core.entities.AccountEntity;
+import com.fams.core.repositories.AccountManager;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
