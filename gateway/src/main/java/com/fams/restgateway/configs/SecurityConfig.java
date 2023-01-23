@@ -1,6 +1,6 @@
 package com.fams.restgateway.configs;
 
-import com.fams.controller.controllers.AuthenController;
+import com.fams.core.controllers.AuthenController;
 import com.fams.restgateway.handlers.JwtTokenHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

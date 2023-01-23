@@ -1,6 +1,0 @@
-spring:
-  data:
-    mongodb:
-      uri: mongodb://root:Goboi123@45.119.212.77:9917/fams?authSource=admin
-  jpa:
-    show-sql: true

@@ -1,6 +1,6 @@
 package com.fams.restgateway.handlers;
 
-import com.fams.controller.exceptions.InvalidSignInException;
+import com.fams.core.exceptions.InvalidSignInException;
 import com.fams.manager.dtos.response.ObjectWrapperResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -18,9 +18,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>manager</module>
-        <module>controller</module>
-        <module>rest-gateway</module>
+        <module>core</module>
+        <module>gateway</module>
     </modules>
 
     <dependencies>

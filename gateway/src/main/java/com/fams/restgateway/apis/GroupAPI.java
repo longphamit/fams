@@ -1,7 +1,7 @@
 package com.fams.restgateway.apis;
 
-import com.fams.controller.controllers.GroupController;
-import com.fams.controller.models.AccountDetailAuthenModel;
+import com.fams.core.controllers.GroupController;
+import com.fams.core.models.AccountDetailAuthenModel;
 import com.fams.manager.dtos.request.AddGroupEventElementRequest;
 import com.fams.manager.dtos.request.AddGroupMemberRequest;
 import com.fams.manager.dtos.request.AddGroupRequest;

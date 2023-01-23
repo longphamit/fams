@@ -1,8 +1,8 @@
 package com.fams.restgateway.apis;
 
-import com.fams.controller.controllers.EventController;
-import com.fams.controller.models.AccountDetailAuthenModel;
-import com.fams.controller.utils.AuthenUtil;
+import com.fams.core.controllers.EventController;
+import com.fams.core.models.AccountDetailAuthenModel;
+import com.fams.core.utils.AuthenUtil;
 import com.fams.manager.constants.enums.RolesEnum;
 import com.fams.manager.dtos.request.AddEventMemberRequest;
 import com.fams.manager.dtos.request.AddEventRequest;

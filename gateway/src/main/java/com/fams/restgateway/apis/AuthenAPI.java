@@ -1,9 +1,9 @@
 package com.fams.restgateway.apis;
 
-import com.fams.controller.components.JwtTokenProvider;
-import com.fams.controller.controllers.AccountController;
-import com.fams.controller.exceptions.InvalidSignInException;
-import com.fams.controller.models.AccountDetailAuthenModel;
+import com.fams.core.components.JwtTokenProvider;
+import com.fams.core.controllers.AccountController;
+import com.fams.core.exceptions.InvalidSignInException;
+import com.fams.core.models.AccountDetailAuthenModel;
 import com.fams.manager.dtos.request.AddAccountRequest;
 import com.fams.manager.dtos.request.SignInRequest;
 import com.fams.manager.dtos.response.GetAccountResponse;

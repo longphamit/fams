@@ -1,7 +1,7 @@
 package com.fams.restgateway.handlers;
 
-import com.fams.controller.components.JwtTokenProvider;
-import com.fams.controller.controllers.AuthenController;
+import com.fams.core.components.JwtTokenProvider;
+import com.fams.core.controllers.AuthenController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
