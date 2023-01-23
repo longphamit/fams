@@ -21,6 +21,7 @@ import "./styles.scss"
 import { useNavigate } from "react-router-dom";
 import { addEventMemberAPI, getEventsAPI } from "../../../connectors/EventConnector";
 import { toast } from "react-toastify";
+import { convertConcurrency } from "../../../../@app/utils/ConcurrencyUtil";
 const { RangePicker } = DatePicker;
 const EventTable = ({groupId}) => {
     const navigate = useNavigate()
@@ -39,6 +40,7 @@ const EventTable = ({groupId}) => {
     }
     const getEvents=async()=>{
         const res=await getEventsAPI(groupId,false,false)
+        console.log(res)
         dispatch(memberActions.setEvents(res.data))
     }
     const handleButtonJoin = async (eventId) => {
@@ -56,7 +58,19 @@ const EventTable = ({groupId}) => {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            render: (text) => <a>{text}</a>,
+            render: (text) => <p>{text}</p>,
+        },
+        {
+            title: 'Type',
+            dataIndex: 'type',
+            key: 'name',
+            render: (text) => <p>{text}</p>,
+        },
+        {
+            title: 'Fee',
+            dataIndex: 'fee',
+            key: 'name',
+            render: (text) => <p>{convertConcurrency(text)} </p>,
         },
         {
             title: 'Members',
@@ -65,6 +79,7 @@ const EventTable = ({groupId}) => {
                 <>{record.members.length}</>
             )
         },
+        
         {
             title: 'Action',
             key: 'action',
@@ -88,13 +103,13 @@ const EventTable = ({groupId}) => {
                             </Button>
                         </div> : null
                     }
-                    <div>
+                    {/* <div>
                         <Popconfirm placement="top" title="Do you want to leave this group?" onConfirm={() => { }} okText="Yes" cancelText="No">
                             <Button className="p-button-danger">
                                 <CloseCircleFilled />
                             </Button>
                         </Popconfirm>
-                    </div>
+                    </div> */}
 
                 </Space>
             ),

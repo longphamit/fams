@@ -18,3 +18,7 @@ export const addEventMemberAPI = async (id,data)=>{
     const response = await request.post(`${HOST}/v1/events/${id}/members`,data)
     return response.data
 }
+export const getEventMembersAPI = async (id)=>{
+    const response = await request.get(`${HOST}/v1/events/${id}/members`)
+    return response.data
+}

@@ -2,5 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Doc/Final_SU_SE/App _ Source Code/BE/kiosk-solution" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Doc/Final_SU_SE/App _ Source Code/FE_Kiosk/kiosk-screen-app" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Doc/Final_SU_SE/App _ Source Code/FE_Portal/kiosk-portal-webapp" vcs="Git" />
   </component>
 </project>

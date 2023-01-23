@@ -27,22 +27,22 @@ const EventElementTable = ({groupId}) => {
             key: 'name',
             render: (text) => <p>{text}</p>,
         },
-        {
-            title: 'Action',
-            key: 'action',
-            align: "center",
-            render: (_, record) => (
-                <Space size="middle">
-                    <div>
-                        <Popconfirm placement="top" title="Do you want to leave this group?" onConfirm={() => { }} okText="Yes" cancelText="No">
-                            <Button className="p-button-danger">
-                                <CloseCircleFilled />
-                            </Button>
-                        </Popconfirm>
-                    </div>
-                </Space>
-            ),
-        },
+        // {
+        //     title: 'Action',
+        //     key: 'action',
+        //     align: "center",
+        //     render: (_, record) => (
+        //         <Space size="middle">
+        //             <div>
+        //                 <Popconfirm placement="top" title="Do you want to leave this group?" onConfirm={() => { }} okText="Yes" cancelText="No">
+        //                     <Button className="p-button-danger">
+        //                         <CloseCircleFilled />
+        //                     </Button>
+        //                 </Popconfirm>
+        //             </div>
+        //         </Space>
+        //     ),
+        // },
     ];
     const handleButtonOpenAddEventElement=()=>{
         dispatch(memberActions.setShowModalAddEventElement(true))

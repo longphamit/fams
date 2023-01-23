@@ -5,7 +5,9 @@ import com.fams.controller.utils.AuthenUtil;
 import com.fams.controller.utils.MapperUtil;
 import com.fams.manager.dtos.request.AddEventMemberRequest;
 import com.fams.manager.dtos.request.AddEventRequest;
+import com.fams.manager.dtos.request.GetAccountRequest;
 import com.fams.manager.dtos.request.GetEventElementRequest;
+import com.fams.manager.dtos.response.GetAccountResponse;
 import com.fams.manager.dtos.response.GetEventResponse;
 import com.fams.manager.entities.AccountEntity;
 import com.fams.manager.entities.EventElementEntity;
@@ -32,7 +34,7 @@ public class EventControllerImpl implements EventController {
 
 
     public GetEventResponse findById(String id) {
-        AccountEntity account= AuthenUtil.getAccountByAuthenContext();
+        AccountEntity account = AuthenUtil.getAccountByAuthenContext();
         EventEntity eventEntity = eventManager.findById(id);
         return mapEventResponseByEntity(account.getId(), eventEntity);
     }
@@ -43,15 +45,23 @@ public class EventControllerImpl implements EventController {
     }
 
     public GetEventResponse addMember(String eventId, AddEventMemberRequest addEventMemberRequest) {
-        if(eventManager.addMemberToEvent(eventId, addEventMemberRequest.getMemberIds())){
+        if (eventManager.addMemberToEvent(eventId, addEventMemberRequest.getMemberIds())) {
             return MapperUtil.map(findById(eventId), GetEventResponse.class);
         }
         throw new IllegalArgumentException("Add member fail");
     }
 
+    public List<GetAccountResponse> getMembers(String eventId) {
+        EventEntity eventEntity = eventManager.findById(eventId);
+        if (eventEntity == null) {
+            throw new IllegalArgumentException("Event not existed");
+        }
+        return MapperUtil.map(accountManager.findByIds(eventEntity.getMembers()), GetAccountResponse.class);
+    }
+
     public List<GetEventResponse> find(FindEventParamModel findEventParamModel) {
-        AccountEntity account= AuthenUtil.getAccountByAuthenContext();
-        return eventManager.find(findEventParamModel).stream().map(e->mapEventResponseByEntity(account.getId(),e)).collect(Collectors.toList());
+        AccountEntity account = AuthenUtil.getAccountByAuthenContext();
+        return eventManager.find(findEventParamModel).stream().map(e -> mapEventResponseByEntity(account.getId(), e)).collect(Collectors.toList());
     }
 
     public List<GetEventElementRequest> getEventElement(String eventId) {
@@ -74,7 +84,7 @@ public class EventControllerImpl implements EventController {
         GetEventResponse eventResponse = MapperUtil.map(event, GetEventResponse.class);
         if (event.getMembers() != null && event.getMembers().size() > 0) {
             eventResponse.setMembers(accountManager.findByIds(event.getMembers()));
-            if(event.getMembers().contains(accountId)){
+            if (event.getMembers().contains(accountId)) {
                 eventResponse.setJoined(true);
             }
         }

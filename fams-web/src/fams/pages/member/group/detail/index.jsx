@@ -68,15 +68,7 @@ const GroupDetailPage = () => {
     const handleButtonAddEvent = () => {
         dispatch(memberActions.setShowModalAddEvent(true))
     }
-    const cities = [
-        { name: 'Quân', code: 'NY' },
-        { name: 'GLong', code: 'RM' },
-        { name: 'Luân', code: 'LDN' },
-        { name: 'KietGo', code: 'IST' },
-        { name: 'HuyVd', code: 'PRS' },
-        { name: 'Khoa', code: 'PRS' },
-        { name: 'CLong', code: 'PRS' }
-    ];
+  
     const init=()=>{
         getGroupDetail()
         getEvents()

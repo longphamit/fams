@@ -2,7 +2,9 @@ package com.fams.controller.controllers;
 
 import com.fams.manager.dtos.request.AddEventMemberRequest;
 import com.fams.manager.dtos.request.AddEventRequest;
+import com.fams.manager.dtos.request.GetAccountRequest;
 import com.fams.manager.dtos.request.GetEventElementRequest;
+import com.fams.manager.dtos.response.GetAccountResponse;
 import com.fams.manager.dtos.response.GetEventResponse;
 import com.fams.manager.models.FindEventParamModel;
 
@@ -14,6 +16,8 @@ public interface EventController {
     List<GetEventResponse> findAll();
 
     GetEventResponse addMember(String eventId, AddEventMemberRequest addEventMemberRequest);
+
+    List<GetAccountResponse> getMembers(String eventId);
 
     List<GetEventResponse> find(FindEventParamModel findEventParamModel);
 

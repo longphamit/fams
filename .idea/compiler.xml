@@ -16,6 +16,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="controller" options="-parameters" />
+      <module name="fams" options="" />
       <module name="manager" options="-parameters" />
       <module name="rest-gateway" options="-parameters" />
     </option>

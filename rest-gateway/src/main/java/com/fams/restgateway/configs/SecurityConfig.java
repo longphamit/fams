@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**/sign-in","/**/sign-up").permitAll().anyRequest().authenticated().and()
+                .antMatchers("/**/sign-in","/**/sign-up","/**/test").permitAll().anyRequest().authenticated().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .formLogin().disable();
         http.addFilterBefore(jwtTokenHandler(), UsernamePasswordAuthenticationFilter.class);

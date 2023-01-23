@@ -1,3 +1,4 @@
+@import "../../../../../scss/variable";
 .groupDetail{
     .box{
         padding: 30px;
@@ -24,10 +25,14 @@
                 border-radius: 20px;
             }
             #events{
-                background-color: #f0c948;
+                background-color: $background-color;
+                color: #fff;
+                font-size: 30px;
             }
             #members{
-                background-color: #8a50a3;
+                background-color: $background-color;
+                color: #fff;
+                font-size: 30px;
             }
         }
     }
